@@ -15,6 +15,15 @@ return new class extends Migration
     {
         Schema::create('pedidos', function (Blueprint $table) {
             $table->id();
+            $table->text('nombre');
+            $table->integer('cant_zap');
+            $table->integer('precio');
+            $table->integer('abono');
+            $table->integer('restante');
+            $table->dateTime('entrega');
+            $table->biginteger('tel');
+             $table->text('status');
+            $table->text('descripcion')->nullable();
             $table->timestamps();
         });
     }

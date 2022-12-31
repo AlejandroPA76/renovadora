@@ -2,6 +2,8 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PedidoController;
+use Illuminate\Support\Facades\Auth;
+use App\Http\Controllers\UsersController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -13,8 +15,22 @@ use App\Http\Controllers\PedidoController;
 |
 */
 
+//login
+Route::POST('validar',[UsersController::class,'validar'])->name('val');
+Route::get('logout',[UsersController::class,'logout'])->name('lout');
+////////
 Route::get('/', function () {
-    return view('layout.dashboard');
+    if (Auth::check()) {
+       return view('layout.dashboard'); 
+    }
+    else{
+        return view('login.login');
+    }
+    
 });
 
-Route::resource('pedidos',PedidoController::class);
+
+Route::resource('pedidos',PedidoController::class)->middleware('auth');
+Route::resource('users',UsersController::class)->middleware('auth');
+
+

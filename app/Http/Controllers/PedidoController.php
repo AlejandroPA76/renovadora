@@ -14,7 +14,11 @@ class PedidoController extends Controller
      */
     public function index()
     {
-       return view('pedidos.index');
+        
+         $listPedidos = Pedido::orderBy('created_at','desc')->get();
+       
+        
+       return view('pedidos.index', compact('listPedidos'));
     }
 
     /**
@@ -24,6 +28,7 @@ class PedidoController extends Controller
      */
     public function create()
     {
+       
         return view('pedidos.add');
     }
 
@@ -35,7 +40,21 @@ class PedidoController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $newPedido = new Pedido;
+        $newPedido->nombre = $request->input('name');
+        $newPedido->cant_zap = $request->input('czapato');
+        $newPedido->precio = $request->input('price');
+        $newPedido->abono = $request->input('abono');
+        $newPedido->restante = $request->input('price') - $request->input('abono');
+        $newPedido->entrega= $request->input('fechaE'). " ". $request->input('time').":00";
+
+        $newPedido->tel = $request->input('tel');
+        $newPedido->status = $request->input('status');
+        $newPedido->descripcion = $request->input('description');
+        $newPedido->save();
+
+        return redirect("/pedidos");
+
     }
 
     /**
@@ -46,7 +65,13 @@ class PedidoController extends Controller
      */
     public function show(Pedido $pedido)
     {
-        //
+        $sPedido = Pedido::find($pedido->id);
+        //convertimos el timestand 
+        //en fecha y hora por separado
+        $fecha = strftime("%d/%m/%Y", strtotime($sPedido->entrega));
+        $hora =  strftime("%H:%M:%S",strtotime($sPedido->entrega));
+
+        return view('pedidos.show',compact('sPedido','fecha','hora'));
     }
 
     /**
@@ -57,7 +82,7 @@ class PedidoController extends Controller
      */
     public function edit(Pedido $pedido)
     {
-        //
+        
     }
 
     /**
@@ -69,7 +94,11 @@ class PedidoController extends Controller
      */
     public function update(Request $request, Pedido $pedido)
     {
-        //
+        $upPedido =Pedido::find($pedido->id);
+        $upPedido->status = $request->input('status');
+        $upPedido->save();
+
+        return redirect('/');
     }
 
     /**
@@ -80,6 +109,10 @@ class PedidoController extends Controller
      */
     public function destroy(Pedido $pedido)
     {
-        //
+        $delP = Pedido::find($pedido->id);
+        $delP->delete();
+        return redirect('');
     }
+
+    
 }
