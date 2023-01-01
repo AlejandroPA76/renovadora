@@ -1,12 +1,12 @@
 @extends('layout.layout2')
-@section('title','Pedidos en proceso')
+@section('title','Pedidos terminados')
 @section('content')
 
 <br><br>
 <div class="card mb-4">
                             <div class="card-header">
                                 <i class="fas fa-table me-1"></i>
-                                Pedidos en proceso
+                                Pedidos terminados
                             </div>
                             <div class="card-body">
                                 <table class="table">
@@ -20,13 +20,13 @@
                                             </tr>
                                           </thead>
                                           <tbody>
-                                             @foreach($listProc as $lproc)
+                                             @foreach($listFi as $lf)
                                             <tr>
-                                              <td>{{$lproc->id}}</td>
-                                              <td>{{$lproc->nombre}}</td>
-                                              <td>{{$lproc->status}}</td>
+                                              <td>{{$lf->id}}</td>
+                                              <td>{{$lf->nombre}}</td>
+                                              <td>{{$lf->status}}</td>
 
-                                              <td><a href="/pedidos/{{$lproc->id}}" class="btn btn-primary">ver</a></td>
+                                              <td><a href="/pedidos/{{$lf->id}}" class="btn btn-primary">ver</a></td>
                                               
                                             </tr>
                                             

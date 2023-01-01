@@ -9,6 +9,7 @@
                                 Pedidos
                             </div>
                             <div class="card-body">
+                              
                                 <table class="table">
 
                                           <thead>
@@ -16,6 +17,7 @@
                                               <th scope="col">codigo</th>
                                               <th scope="col">nombre</th>
                                               <th scope="col">status</th>
+                                              <th scope="col">fecha</th>
                                               <th scope="col">Accion</th>
                                             </tr>
                                           </thead>
@@ -25,9 +27,10 @@
                                               <td>{{$lp->id}}</td>
                                               <td>{{$lp->nombre}}</td>
                                               <td>{{$lp->status}}</td>
+                                              <td>{{$lp->entrega}}</td>
                                               <td>
                                                 <a href="pedidos/{{$lp->id}}" class="btn btn-primary">ver</a> 
-                                               <a href="" class="btn btn-secondary">editar</a> 
+                                               <a href="pedidos/{{$lp->id}}/edit" class="btn btn-secondary">editar</a> 
 
                                                <a href="javascript: document.getElementById('delete').submit()" class="btn btn-danger btn-sm" onclick="return confirm('deseas borrar?')">Eliminar</a>
 

@@ -88,10 +88,38 @@
                                     </form>
 
                                     
-                                    <a href="javascript: document.getElementById('proceso').submit()" class="btn btn-danger " onclick="return confirm('Vas a hacer el pedido?')">Iniciar</a>
+                                    <a href="javascript: document.getElementById('proceso').submit()" class="btn btn-danger " onclick="return confirm('Vas a hacer el pedido?')">Comenzar reparacion</a>
                                    @endif
+
+                                    @if($sPedido->status == "proceso")
+
+                                     <form id=proceso action="/pedidos/{{$sPedido->id}}" method="POST" >
+                                      @csrf
+                                      @method('PUT')
+                                      <input type="hidden" name="menu" value="show2">
+                                      <input type="hidden" name="status" value="finalizado">
+                                    </form>
+
+                                    
+                                    <a href="javascript: document.getElementById('proceso').submit()" class="btn btn-danger " onclick="return confirm('Ya terminaste el zapato?')">Finalizar zapato</a>
+                                   @endif
+
+
+                                    @if($sPedido->status == "finalizado")
+
+                                     <form id=proceso action="/pedidos/{{$sPedido->id}}" method="POST" >
+                                      @csrf
+                                      @method('PUT')
+                                      <input type="hidden" name="menu" value="finalizar">
+                                      <input type="hidden" name="status" value="entregado">
+                                    </form>
+
+                                    
+                                    <a href="javascript: document.getElementById('proceso').submit()" class="btn btn-danger " onclick="return confirm('entregar el zapato?')">Entregar zapato</a>
+                                   @endif
+
                                    
-                                    <a href="/pedidos" class="btn btn-info">salir</a>
+                                    <a href="{{ url()->previous() }}" class="btn btn-info">salir</a>
 
                              
 </div>
