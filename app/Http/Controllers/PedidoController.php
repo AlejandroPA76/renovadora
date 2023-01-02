@@ -17,19 +17,25 @@ class PedidoController extends Controller
 
     {
         $buscarpor = $request->get('buscador');
+
+
 //buscar pedido por id
 if (is_numeric($buscarpor)) {
    $listPedidos = DB::table("pedidos")
                         ->where("id","like","%".$buscarpor."%")
                         ->get();
+
+   
+    
             return view('pedidos.index', compact('listPedidos','buscarpor'));
 }
 //buscar pedido por nombre
 if (is_string($buscarpor)) {
      $listPedidos = DB::table("pedidos")
-                       
                         ->where("nombre","like","%".$buscarpor."%")
                         ->get();
+    
+                        
             return view('pedidos.index', compact('listPedidos','buscarpor'));
 }
 
@@ -39,6 +45,8 @@ if (is_null($buscarpor)) {
                        ->where("status", "=", "recibido")
                        ->orderBy('entrega','asc')
                         ->get();
+                                           
+
             return view('pedidos.index', compact('listPedidos','buscarpor'));
 }
 
@@ -184,10 +192,11 @@ if (is_null($buscarpor)) {
         return redirect('');
     }
 
+//listar pedidos en proceso
     public function listProceso(){
         $listProc = DB::table("pedidos")
             ->where("status", "=", "proceso")
-            ->orderBy('created_at','desc')
+            ->orderBy('entrega','asc')
             ->get();
         
          
@@ -199,7 +208,7 @@ if (is_null($buscarpor)) {
     public function listFinalizado(){
          $listFi = DB::table("pedidos")
             ->where("status", "=", "finalizado")
-            ->orderBy('created_at','desc')
+            ->orderBy('entrega','asc')
             ->get();
         
        return view('pedidos.finalizado.index', compact('listFi'));

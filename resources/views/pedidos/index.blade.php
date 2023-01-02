@@ -25,7 +25,7 @@
                                               <th scope="col">codigo</th>
                                               <th scope="col">nombre</th>
                                               <th scope="col">status</th>
-                                              <th scope="col">fecha</th>
+                                              <th scope="col">fecha de entrega</th>
                                               <th scope="col">Accion</th>
                                             </tr>
                                           </thead>
@@ -35,7 +35,10 @@
                                               <td>{{$lp->id}}</td>
                                               <td>{{$lp->nombre}}</td>
                                               <td>{{$lp->status}}</td>
-                                              <td>{{$lp->entrega}}</td>
+                                              <td>
+                                                {{--con esto convierto la fecha de Y-m-d to d-m-Y --}}
+                                       {{strftime("%d/%m/%Y", strtotime($lp->entrega)). " " .strftime("%H:%M",strtotime($lp->entrega))}}
+                                              </td>
                                               <td>
                                                 <a href="pedidos/{{$lp->id}}" class="btn btn-primary">ver</a> 
                                                <a href="pedidos/{{$lp->id}}/edit" class="btn btn-secondary">editar</a> 

@@ -16,9 +16,15 @@
 
                                     <div class="form-group">
                                       <p>
-                                      <label>id:</label>
+                                            <label>id:</label>
                                             <input  type="number"  name="name" disabled value="{{$sPedido->id}}">
-                                          </p>  
+                                      </p>  
+                                      
+                                      <p>
+                                         <label>Status:</label>
+                                            <input  type="text"  name="name" disabled value="{{$sPedido->status}}">
+                                      </p>
+                                      
                                       <p>
 
                                             <label>introduce tu nombre:</label>
