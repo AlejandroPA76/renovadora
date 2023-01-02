@@ -13,19 +13,36 @@ class PedidoController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
 
     {
-
-
-           $listPedidos = DB::table("pedidos")
-                        ->where("status", "=", "recibido")
+        $buscarpor = $request->get('buscador');
+//buscar pedido por id
+if (is_numeric($buscarpor)) {
+   $listPedidos = DB::table("pedidos")
+                        ->where("id","like","%".$buscarpor."%")
                         ->get();
-        
-         
-       
-        
-       return view('pedidos.index', compact('listPedidos'));
+            return view('pedidos.index', compact('listPedidos','buscarpor'));
+}
+//buscar pedido por nombre
+if (is_string($buscarpor)) {
+     $listPedidos = DB::table("pedidos")
+                       
+                        ->where("nombre","like","%".$buscarpor."%")
+                        ->get();
+            return view('pedidos.index', compact('listPedidos','buscarpor'));
+}
+
+//mostrar solo los pendientes
+if (is_null($buscarpor)) {
+     $listPedidos = DB::table("pedidos")            
+                       ->where("status", "=", "recibido")
+                       ->orderBy('entrega','asc')
+                        ->get();
+            return view('pedidos.index', compact('listPedidos','buscarpor'));
+}
+
+           
     }
 
     /**

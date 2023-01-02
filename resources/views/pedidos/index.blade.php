@@ -7,6 +7,14 @@
                             <div class="card-header">
                                 <i class="fas fa-table me-1"></i>
                                 Pedidos
+    <form>
+      <div class="d-flex content-end h-100">
+        <div class="searchbar">
+          <input class="search_input" type="text" name="buscador" placeholder="Search..." value="{{$buscarpor}}">
+          <button type="submit">buscar</button>
+        </div>
+      </div></form>
+    
                             </div>
                             <div class="card-body">
                               
