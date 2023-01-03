@@ -10,7 +10,9 @@
     <form>
       <div class="d-flex content-end h-100">
         <div class="searchbar">
-          <input class="search_input" type="text" name="buscador" placeholder="Search..." value="{{$buscarpor}}">
+          <input class="search_input" type="text" name="buscador" placeholder="id/nombre/status" value="{{$buscarpor}}">
+
+        
           <button type="submit">buscar</button>
         </div>
       </div></form>
@@ -43,7 +45,7 @@
                                                 <a href="pedidos/{{$lp->id}}" class="btn btn-primary">ver</a> 
                                                <a href="pedidos/{{$lp->id}}/edit" class="btn btn-secondary">editar</a> 
 
-                                               <a href="javascript: document.getElementById('delete').submit()" class="btn btn-danger btn-sm" onclick="return confirm('deseas borrar?')">Eliminar</a>
+                                               <a href="javascript: document.getElementById('delete').submit()" class="btn btn-danger" onclick="return confirm('deseas borrar?')">Eliminar</a>
 
                                                   <form id=delete action="pedidos/{{$lp->id}}" method="POST">
                                                     @csrf

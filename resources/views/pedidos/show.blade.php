@@ -1,5 +1,5 @@
 @extends('layout.layout2')
-@section('title','Agregar Pedido')
+@section('title','Pedido')
 @section('content')
 
 <br>
@@ -83,8 +83,75 @@
                                             <textarea placeholder="Anota las reparaciones" name="description" cols="40" rows="5" style="resize: both;" disabled>{{$sPedido->descripcion}}</textarea>
                                   
                                     </div>
+     
+                                    {{-- La variable $pro viene de la funcion show y con ellos sabemos si estan en el menu de pedidos y si se encuentran buscando pedidos fuera del status recibido y con ellos habiliatmos todos los botones en caso de que el usuario se equivoque y necesite corregir el status  --}}
+                                    @if($pro == "si")
 
-                                    @if($sPedido->status == "recibido")
+                                     <p>  
+                                     <form id=recibido action="/pedidos/{{$sPedido->id}}" method="POST" >
+                                      @csrf
+                                      @method('PUT')
+                                      <input type="hidden" name="menu" value="show">
+                                      <input type="hidden" name="status" value="recibido">
+                                    </form>
+
+                                    
+                                    <a href="javascript: document.getElementById('recibido').submit()" class="btn btn-danger " onclick="return confirm('estas recibiendo el pedido desde 0')">recibir</a>
+                                  </p>
+
+
+                                    <p>
+                                    
+                                     <form id=proceso action="/pedidos/{{$sPedido->id}}" method="POST" >
+                                      @csrf
+                                      @method('PUT')
+                                      <input type="hidden" name="menu" value="show">
+                                      <input type="hidden" name="status" value="proceso">
+                                    </form>
+
+                                    
+                                    <a href="javascript: document.getElementById('proceso').submit()" class="btn btn-danger " onclick="return confirm('Vas a hacer el pedido?')">proceso</a>
+                                  </p><p>
+                                     <form id=proceso action="/pedidos/{{$sPedido->id}}" method="POST" >
+                                      @csrf
+                                      @method('PUT')
+                                      <input type="hidden" name="menu" value="show2">
+                                      <input type="hidden" name="status" value="finalizado">
+                                    </form>
+
+                                    
+                                    <a href="javascript: document.getElementById('proceso').submit()" class="btn btn-danger " onclick="return confirm('Ya terminaste el zapato?')">Finalizado</a>
+                                    </p>
+                                    <p>
+                                       <form id=proceso action="/pedidos/{{$sPedido->id}}" method="POST" >
+                                      @csrf
+                                      @method('PUT')
+                                      <input type="hidden" name="menu" value="finalizar">
+                                      <input type="hidden" name="status" value="entregado">
+                                    </form>
+
+                                    
+                                    <a href="javascript: document.getElementById('proceso').submit()" class="btn btn-danger " onclick="return confirm('entregar el zapato?')">Entregado</a>
+                                    </p>
+                                     <p>
+                                    
+                                     <form id=bodega action="/pedidos/{{$sPedido->id}}" method="POST" >
+                                      @csrf
+                                      @method('PUT')
+                                      <input type="hidden" name="menu" value="show">
+                                      <input type="hidden" name="status" value="bodega">
+                                    </form>
+
+                                    
+                                    <a href="javascript: document.getElementById('bodega').submit()" class="btn btn-danger " onclick="return confirm('llevar a bodega?')">bodega</a>
+                                  </p>
+
+
+                                   @endif
+
+                                   {{-- comparamos el valor de la variable pro y si es "no" solo habilitaremos los botones segun el status en el que se encuentre el pedido--}}
+                                    @if($pro == "no")
+                                        @if($sPedido->status == "recibido")
 
                                      <form id=proceso action="/pedidos/{{$sPedido->id}}" method="POST" >
                                       @csrf
@@ -123,7 +190,7 @@
                                     
                                     <a href="javascript: document.getElementById('proceso').submit()" class="btn btn-danger " onclick="return confirm('entregar el zapato?')">Entregar zapato</a>
                                    @endif
-
+                                   @endif
                                    
                                     <a href="{{ url()->previous() }}" class="btn btn-info">salir</a>
 
