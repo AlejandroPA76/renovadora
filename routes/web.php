@@ -16,7 +16,11 @@ use App\Http\Controllers\UsersController;
 */
 
 //login
+//valida los campos
 Route::POST('validar',[UsersController::class,'validar'])->name('val');
+//solo muestra la vista login para el auth middleware
+Route::view('login','login.login')->name('loginP');
+
 Route::get('logout',[UsersController::class,'logout'])->name('lout');
 
 //////// lobby segun si esta autenticado o no mostrara si el menu o redirecciona al login
@@ -35,6 +39,6 @@ Route::resource('pedidos',PedidoController::class)->middleware('auth');
 Route::resource('users',UsersController::class)->middleware('auth');
 
 //listar los datos de cada menu tarjet proceso,finalizado,bodega
-Route::GET('pedidos/listar/procesos',[PedidoController::class,'listProceso'])->name('listproc');
-Route::GET('pedidos/listar/finalizados',[PedidoController::class,'listFinalizado'])->name('listfina');
+Route::GET('pedidos/listar/procesos',[PedidoController::class,'listProceso'])->name('listproc')->middleware('auth');
+Route::GET('pedidos/listar/finalizados',[PedidoController::class,'listFinalizado'])->name('listfina')->middleware('auth');
 

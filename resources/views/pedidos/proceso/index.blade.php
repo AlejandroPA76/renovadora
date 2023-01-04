@@ -13,6 +13,7 @@
 
                                           <thead>
                                             <tr>
+                                              <th scope="col"></th>
                                               <th scope="col">codigo</th>
                                               <th scope="col">nombre</th>
                                               <th scope="col">status</th>
@@ -22,7 +23,30 @@
                                           </thead>
                                           <tbody>
                                              @foreach($listProc as $lproc)
-                                            <tr>
+                                            <tr
+                                             bgcolor="<?php 
+                                            date_default_timezone_set('America/Mexico_City');
+                                            $fechaNow = new DateTime();
+                                            $fechaE = new DateTime($lproc->entrega);
+
+                                            $diff = $fechaNow->diff($fechaE);
+                                            $totalD = ($diff->invert == 1) ? ' - ' . $diff->days .' days '  : $diff->days .' days ';
+
+                                            if($totalD < 2)echo '#E59A90';
+                                            else echo '' ?>" 
+
+                                            >
+                                                <td><?php  
+                                            date_default_timezone_set('America/Mexico_City');
+                                            $fechaNow = new DateTime();
+                                            $fechaE = new DateTime($lproc->entrega);
+
+                                            $diff = $fechaNow->diff($fechaE);
+                                            $totalD = ($diff->invert == 1) ? ' - ' . $diff->days .' days '  : $diff->days .' days ';
+                                            if ($totalD < 2) {
+                                              echo "urgente";
+                                            }
+                                            ?></td>
                                               <td>{{$lproc->id}}</td>
                                               <td>{{$lproc->nombre}}</td>
                                               <td>{{$lproc->status}}</td>

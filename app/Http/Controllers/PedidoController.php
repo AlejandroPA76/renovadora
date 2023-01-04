@@ -32,6 +32,18 @@ if (is_numeric($buscarpor)) {
      Session::put('pedidosglobal',"si");
             return view('pedidos.index', compact('listPedidos','buscarpor'));
 }
+
+//buscar todos los pedidos escribiendo la palabra todos
+if ($buscarpor == "/todos/"){
+     $listPedidos = DB::table("pedidos")            
+                       ->orderBy('entrega','asc')
+                        ->get();
+
+            Session::put('pedidosglobal',"no");                                     
+
+            return view('pedidos.index', compact('listPedidos','buscarpor'));
+}
+
 //buscar pedido por nombre
 if (is_string($buscarpor)) {
     //variable de sesion con la que me doy cuenta si hubo una busqueda es que estan en el menu de pedidos y con esto cambio el estado de la variable de sesion a si para poder habilitar todos los botones al metodo show y si no hay busqueda bloquea los botones por que no se encuentran en el menu pedidos
@@ -57,6 +69,7 @@ if (is_null($buscarpor)) {
 
             return view('pedidos.index', compact('listPedidos','buscarpor'));
 }
+
 
            
     }
